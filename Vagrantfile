@@ -100,10 +100,10 @@ Vagrant.configure("2") do |config|
     --create-namespace --namespace octopus-agent-kind \
     --version "2.*.*" \
     --set agent.acceptEula="Y" \
-    --set agent.space=${OCTOPUS_TEMPK8S_SPACE} \
+    --set agent.space="#{ENV['OCTOPUS_TEMPK8S_SPACE']}" \
     --set agent.serverUrl="https://mattc.octopus.app/" \
     --set agent.serverCommsAddresses="{https://polling.mattc.octopus.app/}" \
-    --set agent.bearerToken=${OCTOPUS_TEMPK8S_BEARER_TOKEN} \
+    --set agent.bearerToken="#{ENV['OCTOPUS_TEMPK8S_BEARER_TOKEN']}" \
     --set agent.name="Kind" \
     --set agent.deploymentTarget.initial.environments="{production}" \
     --set agent.deploymentTarget.initial.tags="{Kubernetes}" \
@@ -111,8 +111,8 @@ Vagrant.configure("2") do |config|
     --set kubernetesMonitor.enabled="true" \
     --set kubernetesMonitor.registration.serverApiUrl="https://mattc.octopus.app/" \
     --set kubernetesMonitor.monitor.serverGrpcUrl="grpc://mattc.octopus.app:8443" \
-    --set kubernetesMonitor.registration.serverAccessToken=${OCTOPUS_TEMPK8S_ACCESS_TOKEN} \
-    --set kubernetesMonitor.registration.spaceId="${OCTOPUS_TEMPK8S_SPACE_ID}" \
+    --set kubernetesMonitor.registration.serverAccessToken="#{ENV['OCTOPUS_TEMPK8S_ACCESS_TOKEN']}" \
+    --set kubernetesMonitor.registration.spaceId="#{ENV['OCTOPUS_TEMPK8S_SPACE_ID']}" \
     --set kubernetesMonitor.registration.machineName="Kind" \
     kind \
     oci://registry-1.docker.io/octopusdeploy/kubernetes-agent
