@@ -112,7 +112,7 @@ Vagrant.configure("2") do |config|
     --set kubernetesMonitor.registration.serverApiUrl="https://mattc.octopus.app/" \
     --set kubernetesMonitor.monitor.serverGrpcUrl="grpc://mattc.octopus.app:8443" \
     --set kubernetesMonitor.registration.serverAccessToken=${OCTOPUS_ACCESS_TOKEN} \
-    --set kubernetesMonitor.registration.spaceId="Spaces-3628" \
+    --set kubernetesMonitor.registration.spaceId="${OCTOPUS_SPACE_ID}" \
     --set kubernetesMonitor.registration.machineName="Kind" \
     kind \
     oci://registry-1.docker.io/octopusdeploy/kubernetes-agent
