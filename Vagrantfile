@@ -97,6 +97,7 @@ Vagrant.configure("2") do |config|
     csi-driver-nfs
 
     helm upgrade --install --atomic \
+    --timeout 20m0s \
     --create-namespace --namespace octopus-agent-kind \
     --version "2.*.*" \
     --set agent.acceptEula="Y" \
