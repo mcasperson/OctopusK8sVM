@@ -1,0 +1,1 @@
+OCTOPUS_SPACE=Scratchpad OCTOPUS_BEARER_TOKEN=token OCTOPUS_ACCESS_TOKEN=token vagrant up
