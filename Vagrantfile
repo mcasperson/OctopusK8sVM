@@ -106,7 +106,7 @@ Vagrant.configure("2") do |config|
     --set agent.serverCommsAddresses="{https://polling.mattc.octopus.app/}" \
     --set agent.bearerToken="${OCTOPUS_TEMPK8S_BEARER_TOKEN}" \
     --set agent.name="Kind" \
-    --set agent.deploymentTarget.initial.environments="{production}" \
+    --set agent.deploymentTarget.initial.environments="{development,test,production}" \
     --set agent.deploymentTarget.initial.tags="{Kubernetes}" \
     --set agent.deploymentTarget.enabled="true" \
     --set kubernetesMonitor.enabled="true" \
