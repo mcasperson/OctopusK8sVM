@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+
+# Copy the script from "Install Kubernetes Agent" into helm.txt and then run this script to get the command.
+
 import re
 import sys
 
