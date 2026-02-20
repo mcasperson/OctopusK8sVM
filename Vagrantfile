@@ -90,6 +90,8 @@ Vagrant.configure("2") do |config|
     kind create cluster
 
     helm upgrade --install --atomic \
+    --timeout 10m0s \
+    --wait \
     --repo https://raw.githubusercontent.com/kubernetes-csi/csi-driver-nfs/master/charts \
     --namespace kube-system \
     --version "v4.*.*" \
@@ -98,6 +100,7 @@ Vagrant.configure("2") do |config|
 
     helm upgrade --install --atomic \
     --timeout 20m0s \
+    --wait \
     --create-namespace --namespace octopus-agent-kind \
     --version "2.*.*" \
     --set agent.acceptEula="Y" \
