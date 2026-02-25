@@ -153,7 +153,7 @@ data:
 #   apiKey - allows generating API keys
   accounts.octopus: apiKey
   accounts.octopus.enabled: "true"
-    EOF
+EOF
 
     kubectl apply -f argocduser.yml
 
@@ -168,7 +168,7 @@ data:
     p, octopus, applications, get, *, allow
     p, octopus, clusters, get, *, allow
     p, octopus, logs, get, */*, allow
-    EOF
+EOF
 
     kubectl apply -f argocdpolicies.yml
   SHELL
