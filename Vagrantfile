@@ -130,5 +130,38 @@ Vagrant.configure("2") do |config|
     echo "Argo CD initial admin password:"
     PASSWORD=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
     echo "$PASSWORD"
+
+    cat << EOF > argocduser.yml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cm
+  namespace: argocd
+  labels:
+    app.kubernetes.io/name: argocd-cm
+    app.kubernetes.io/part-of: argocd
+data:
+# add an additional local user with apiKey and login capabilities
+#   apiKey - allows generating API keys
+  accounts.octopus: apiKey
+  accounts.octopus.enabled: "true"
+    EOF
+
+    kubectl apply -f argocduser.yml
+
+    cat << EOF > argocdpolicies.yml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-rbac-cm
+  namespace: argocd
+data:
+  policy.csv: |
+    p, octopus, applications, get, *, allow
+    p, octopus, clusters, get, *, allow
+    p, octopus, logs, get, */*, allow
+    EOF
+
+    kubectl apply -f argocdpolicies.yml
   SHELL
 end
