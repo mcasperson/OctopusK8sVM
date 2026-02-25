@@ -71,7 +71,7 @@ Vagrant.configure("2") do |config|
   # Enable provisioning with a shell script. Additional provisioners such as
   # Ansible, Chef, Docker, Puppet and Salt are also available. Please see the
   # documentation for more information about their specific syntax and use.
-  config.vm.provision "shell", env: {"OCTOPUS_TEMPK8S_SPACE" => ENV['OCTOPUS_TEMPK8S_SPACE'], "OCTOPUS_TEMPK8S_BEARER_TOKEN" => ENV['OCTOPUS_TEMPK8S_BEARER_TOKEN'], "OCTOPUS_TEMPK8S_ACCESS_TOKEN" => ENV['OCTOPUS_TEMPK8S_ACCESS_TOKEN'], "OCTOPUS_TEMPK8S_SPACE_ID" => ENV['OCTOPUS_TEMPK8S_SPACE_ID']}, inline: <<-SHELL
+  config.vm.provision "shell", env: {"OCTOPUS_TEMPK8S_HOSTNAME" => ENV['OCTOPUS_TEMPK8S_HOSTNAME'], "OCTOPUS_TEMPK8S_SPACE" => ENV['OCTOPUS_TEMPK8S_SPACE'], "OCTOPUS_TEMPK8S_BEARER_TOKEN" => ENV['OCTOPUS_TEMPK8S_BEARER_TOKEN'], "OCTOPUS_TEMPK8S_ACCESS_TOKEN" => ENV['OCTOPUS_TEMPK8S_ACCESS_TOKEN'], "OCTOPUS_TEMPK8S_SPACE_ID" => ENV['OCTOPUS_TEMPK8S_SPACE_ID']}, inline: <<-SHELL
     apt-get update
     apt-get install -y docker.io
 
@@ -105,16 +105,16 @@ Vagrant.configure("2") do |config|
     --version "2.*.*" \
     --set agent.acceptEula="Y" \
     --set agent.space="$OCTOPUS_TEMPK8S_SPACE" \
-    --set agent.serverUrl="https://mattc.octopus.app/" \
-    --set agent.serverCommsAddresses="{https://polling.mattc.octopus.app/}" \
+    --set agent.serverUrl="https://$OCTOPUS_TEMPK8S_HOSTNAME" \
+    --set agent.serverCommsAddresses="{https://$OCTOPUS_TEMPK8S_HOSTNAME/}" \
     --set agent.bearerToken="${OCTOPUS_TEMPK8S_BEARER_TOKEN}" \
     --set agent.name="Kind" \
     --set agent.deploymentTarget.initial.environments="{development,test,production}" \
     --set agent.deploymentTarget.initial.tags="{Kubernetes}" \
     --set agent.deploymentTarget.enabled="true" \
     --set kubernetesMonitor.enabled="true" \
-    --set kubernetesMonitor.registration.serverApiUrl="https://mattc.octopus.app/" \
-    --set kubernetesMonitor.monitor.serverGrpcUrl="grpc://mattc.octopus.app:8443" \
+    --set kubernetesMonitor.registration.serverApiUrl="https://$OCTOPUS_TEMPK8S_HOSTNAME/" \
+    --set kubernetesMonitor.monitor.serverGrpcUrl="grpc://$OCTOPUS_TEMPK8S_HOSTNAME:8443" \
     --set kubernetesMonitor.registration.serverAccessToken="${OCTOPUS_TEMPK8S_ACCESS_TOKEN}" \
     --set kubernetesMonitor.registration.spaceId="${OCTOPUS_TEMPK8S_SPACE_ID}" \
     --set kubernetesMonitor.registration.machineName="Kind" \
