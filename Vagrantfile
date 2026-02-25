@@ -120,5 +120,15 @@ Vagrant.configure("2") do |config|
     --set kubernetesMonitor.registration.machineName="Kind" \
     kind \
     oci://registry-1.docker.io/octopusdeploy/kubernetes-agent
+
+    # Install Argo CD
+
+    kubectl create namespace argocd
+    kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+    kubectl wait --for=condition=Ready pods --all -n argocd --timeout=300s
+
+    echo "Argo CD initial admin password:"
+    PASSWORD=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
+    echo "$PASSWORD"
   SHELL
 end
