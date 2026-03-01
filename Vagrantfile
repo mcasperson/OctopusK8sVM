@@ -136,13 +136,16 @@ Vagrant.configure("2") do |config|
 
     kubectl create namespace argocd
     kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+    # Wait for the pods to be ready before proceeding
     kubectl wait --for=condition=Ready pods --all -n argocd --timeout=300s
+
+    kubectl port-forward svc/argocd-server -n argocd 8080:443 &
+
 
     echo "Argo CD initial admin password:"
     PASSWORD=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
     echo "$PASSWORD"
-
-    kubectl port-forward svc/argocd-server -n argocd 8080:443 &
 
     argocd login "localhost:8080" --username admin --password $PASSWORD --insecure
 
