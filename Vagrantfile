@@ -207,5 +207,7 @@ EOF
     GIT_USER=${uuidgen}
 
     argocd repo add https://mockgitserver.orangegrass-c0938ea8.westus2.azurecontainerapps.io/repo/argocd --username ${GIT_USER} --password "blahblah"
+
+    exit 0
   SHELL
 end
