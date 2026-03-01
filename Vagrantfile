@@ -8,6 +8,7 @@
 Vagrant.configure("2") do |config|
   config.vm.provider :hyperv do |v, override|
     v.cpus = 12  # Set to the desired number of CPUs, e.g., 2, 4, etc.
+    v.maxmemory = 8192 # memory in MB
     v.memory = 8192 # memory in MB
   end
 
