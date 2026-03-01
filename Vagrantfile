@@ -147,7 +147,6 @@ Vagrant.configure("2") do |config|
 
     kubectl port-forward svc/argocd-server -n argocd 8080:443 &
 
-
     echo "Argo CD initial admin password:"
     PASSWORD=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
     echo "$PASSWORD"
@@ -206,7 +205,13 @@ EOF
 
     GIT_USER=${uuidgen}
 
-    argocd repo add https://mockgitserver.orangegrass-c0938ea8.westus2.azurecontainerapps.io/repo/argocd --username ${GIT_USER} --password "blahblah"
+    argocd repo add https://mockgitserver.orangegrass-c0938ea8.westus2.azurecontainerapps.io/repo/argocd --username "${GIT_USER}" --password "blahblah"
+
+    argocd app create nginx \
+        --repo https://mockgitserver.orangegrass-c0938ea8.westus2.azurecontainerapps.io/repo/argocd \
+        --path . \
+        --dest-server https://kubernetes.default.svc \
+        --dest-namespace nginx
 
     exit 0
   SHELL
