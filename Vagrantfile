@@ -118,7 +118,7 @@ Vagrant.configure("2") do |config|
     --set kubernetesMonitor.registration.serverAccessToken="${OCTOPUS_TEMPK8S_BEARER_TOKEN}" \
     --set kubernetesMonitor.registration.spaceId="${OCTOPUS_TEMPK8S_SPACE_ID}" \
     --set kubernetesMonitor.registration.machineName="Kind" \
-    kind \
+    kindk8sagent \
     oci://registry-1.docker.io/octopusdeploy/kubernetes-agent
 
     # Install Argo CD
