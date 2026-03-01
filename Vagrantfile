@@ -137,7 +137,7 @@ Vagrant.configure("2") do |config|
 
     kubectl port-forward svc/argocd-server -n argocd 8080:443 &
 
-    argocd login https://localhost:8080 --username admin --password $PASSWORD
+    argocd login "localhost:8080" --username admin --password $PASSWORD
 
     cat << EOF > argocduser.yml
 apiVersion: v1
