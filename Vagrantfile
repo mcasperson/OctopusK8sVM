@@ -137,7 +137,7 @@ Vagrant.configure("2") do |config|
 
     kubectl port-forward svc/argocd-server -n argocd 8080:443 &
 
-    argocd login "localhost:8080" --username admin --password $PASSWORD
+    argocd login "localhost:8080" --username admin --password $PASSWORD --insecure
 
     cat << EOF > argocduser.yml
 apiVersion: v1
@@ -171,5 +171,22 @@ data:
 EOF
 
     kubectl apply -f argocdpolicies.yml
+
+    TOKEN=$(argocd account generate-token --account octopus)
+
+    helm upgrade --install --atomic \
+    --create-namespace --namespace octo-argo-gateway-kind \
+    --version "*.*" \
+    --set registration.octopus.name="Kind" \
+    --set registration.octopus.serverApiUrl="https://${OCTOPUS_TEMPK8S_HOSTNAME}" \
+    --set registration.octopus.serverAccessToken="${OCTOPUS_TEMPK8S_BEARER_TOKEN}" \
+    --set registration.octopus.spaceId="${OCTOPUS_TEMPK8S_SPACE}" \
+    --set gateway.octopus.serverGrpcUrl="grpc://${OCTOPUS_TEMPK8S_HOSTNAME}:8443" \
+    --set gateway.argocd.serverGrpcUrl="grpc://argocd-server.argocd.svc.cluster.local" \
+    --set gateway.argocd.insecure="true" \
+    --set gateway.argocd.plaintext="false" \
+    --set gateway.argocd.authenticationToken="${TOKEN}" \
+    kind \
+    oci://registry-1.docker.io/octopusdeploy/octopus-argocd-gateway-chart
   SHELL
 end
