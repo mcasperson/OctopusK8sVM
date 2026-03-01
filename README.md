@@ -10,6 +10,8 @@ OCTOPUS_TEMPK8S_BEARER_TOKEN=token \
 vagrant up
 ```
 
+This must be run as Administrator in Windows:
+
 ```powershell
 $env:OCTOPUS_TEMPK8S_GRPC_HOSTNAME="mattc.octopus.app:8443"
 $env:OCTOPUS_TEMPK8S_HOSTNAME="mattc.octopus.app"
