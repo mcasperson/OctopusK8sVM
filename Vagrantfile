@@ -180,7 +180,7 @@ EOF
     --set registration.octopus.name="Kind" \
     --set registration.octopus.serverApiUrl="https://${OCTOPUS_TEMPK8S_HOSTNAME}" \
     --set registration.octopus.serverAccessToken="${OCTOPUS_TEMPK8S_BEARER_TOKEN}" \
-    --set registration.octopus.spaceId="${OCTOPUS_TEMPK8S_SPACE}" \
+    --set registration.octopus.spaceId="${OCTOPUS_TEMPK8S_SPACE_ID}" \
     --set gateway.octopus.serverGrpcUrl="grpc://${OCTOPUS_TEMPK8S_HOSTNAME}:8443" \
     --set gateway.argocd.serverGrpcUrl="grpc://argocd-server.argocd.svc.cluster.local" \
     --set gateway.argocd.insecure="true" \
