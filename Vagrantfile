@@ -188,5 +188,9 @@ EOF
     --set gateway.argocd.authenticationToken="${TOKEN}" \
     kind \
     oci://registry-1.docker.io/octopusdeploy/octopus-argocd-gateway-chart
+
+    GIT_USER=${uuidgen}
+
+    argocd repo add https://mockgitserver.orangegrass-c0938ea8.westus2.azurecontainerapps.io/repo/argocd --username ${GIT_USER} --password "blahblah"
   SHELL
 end
