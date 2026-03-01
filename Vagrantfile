@@ -186,7 +186,7 @@ EOF
     --set gateway.argocd.insecure="true" \
     --set gateway.argocd.plaintext="false" \
     --set gateway.argocd.authenticationToken="${TOKEN}" \
-    kind \
+    kindargocd \
     oci://registry-1.docker.io/octopusdeploy/octopus-argocd-gateway-chart
 
     GIT_USER=${uuidgen}
