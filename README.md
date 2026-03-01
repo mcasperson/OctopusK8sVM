@@ -10,6 +10,16 @@ OCTOPUS_TEMPK8S_BEARER_TOKEN=token \
 vagrant up
 ```
 
+```powershell
+$env:OCTOPUS_TEMPK8S_GRPC_HOSTNAME="mattc.octopus.app:8443"
+$env:OCTOPUS_TEMPK8S_HOSTNAME="mattc.octopus.app"
+$env:OCTOPUS_TEMPK8S_POLLING_HOSTNAME="polling.mattc.octopus.app"
+$env:OCTOPUS_TEMPK8S_SPACE="Scratchpad"
+$env:OCTOPUS_TEMPK8S_SPACE_ID="Spaces-###"
+$env:OCTOPUS_TEMPK8S_BEARER_TOKEN="token"
+vagrant up vagrant up --provider=hyperv
+```
+
 ```bash
 OCTOPUS_TEMPK8S_GRPC_HOSTNAME=octopusvmgrpc.mcasperson.com \
 OCTOPUS_TEMPK8S_HOSTNAME=octopusvm.mcasperson.com \
