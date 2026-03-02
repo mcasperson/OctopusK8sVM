@@ -85,7 +85,7 @@ Vagrant.configure("2") do |config|
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", env: {"OCTOPUS_TEMPK8S_GRPC_HOSTNAME" => ENV['OCTOPUS_TEMPK8S_GRPC_HOSTNAME'], "OCTOPUS_TEMPK8S_POLLING_HOSTNAME" => ENV['OCTOPUS_TEMPK8S_POLLING_HOSTNAME'], "OCTOPUS_TEMPK8S_HOSTNAME" => ENV['OCTOPUS_TEMPK8S_HOSTNAME'], "OCTOPUS_TEMPK8S_SPACE" => ENV['OCTOPUS_TEMPK8S_SPACE'], "OCTOPUS_TEMPK8S_BEARER_TOKEN" => ENV['OCTOPUS_TEMPK8S_BEARER_TOKEN'], "OCTOPUS_TEMPK8S_SPACE_ID" => ENV['OCTOPUS_TEMPK8S_SPACE_ID']}, inline: <<-SHELL
     apt-get update
-    apt-get install -y docker.io
+    apt-get install -y docker.io golang-go
 
     curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
     sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
@@ -100,6 +100,37 @@ Vagrant.configure("2") do |config|
     sudo mv ./kind /usr/local/bin/kind
 
     kind create cluster
+
+    curl -L https://github.com/kubernetes-sigs/cloud-provider-kind/releases/download/v0.10.0/cloud-provider-kind_0.10.0_linux_amd64.tar.gz -o cloud-provider-kind.tar.gz
+    tar -xzf cloud-provider-kind.tar.gz
+    mv cloud-provider-kind /usr/local/bin/cloud-provider-kind
+
+    cat <<EOF1 > /etc/systemd/system/cloud-provider-kind.service
+    [Unit]
+    Description=Cloud Provider for KIND
+    After=network.target
+
+    [Service]
+    Type=simple
+    ExecStart=/usr/local/bin/cloud-provider-kind
+    Restart=always
+    RestartSec=5
+
+    [Install]
+    WantedBy=multi-user.target
+    EOF1
+
+    # Reload systemd to pick up the new file
+    sudo systemctl daemon-reload
+
+    # Enable the service to run on boot
+    sudo systemctl enable cloud-provider-kind
+
+    # Start it now
+    sudo systemctl start cloud-provider-kind
+
+    # Check status
+    sudo systemctl status cloud-provider-kind
 
     helm upgrade --install --atomic \
     --timeout 10m0s \
