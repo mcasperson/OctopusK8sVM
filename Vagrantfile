@@ -209,13 +209,13 @@ EOF
 
     argocd repo add https://mockgitserver.orangegrass-c0938ea8.westus2.azurecontainerapps.io/repo/argocd --username "${GIT_USER}" --password "blahblah"
 
-    argocd app create nginx \
+    argocd app create octopub \
         --repo https://mockgitserver.orangegrass-c0938ea8.westus2.azurecontainerapps.io/repo/argocd \
-        --path helm \
+        --path octopub \
         --dest-server https://kubernetes.default.svc \
-        --dest-namespace nginx
+        --dest-namespace octopub
 
-    argocd app sync argocd/nginx
+    argocd app sync argocd/octopub
 
     exit 0
   SHELL
