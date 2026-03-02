@@ -106,19 +106,19 @@ Vagrant.configure("2") do |config|
     mv cloud-provider-kind /usr/local/bin/cloud-provider-kind
 
     cat <<EOF1 > /etc/systemd/system/cloud-provider-kind.service
-    [Unit]
-    Description=Cloud Provider for KIND
-    After=network.target
+[Unit]
+Description=Cloud Provider for KIND
+After=network.target
 
-    [Service]
-    Type=simple
-    ExecStart=/usr/local/bin/cloud-provider-kind
-    Restart=always
-    RestartSec=5
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/cloud-provider-kind
+Restart=always
+RestartSec=5
 
-    [Install]
-    WantedBy=multi-user.target
-    EOF1
+[Install]
+WantedBy=multi-user.target
+EOF1
 
     # Reload systemd to pick up the new file
     sudo systemctl daemon-reload
