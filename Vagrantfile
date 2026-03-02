@@ -209,7 +209,7 @@ EOF
 
     argocd app create nginx \
         --repo https://mockgitserver.orangegrass-c0938ea8.westus2.azurecontainerapps.io/repo/argocd \
-        --path . \
+        --path helm \
         --dest-server https://kubernetes.default.svc \
         --dest-namespace nginx
 
