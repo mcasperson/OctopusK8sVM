@@ -147,7 +147,7 @@ Vagrant.configure("2") do |config|
     # Wait for the pods to be ready before proceeding
     kubectl wait --for=condition=Ready pods --all -n argocd --timeout=300s
 
-    kubectl port-forward svc/argocd-server -n argocd 8080:443 &
+    kubectl port-forward svc/argocd-server -n argocd 8080:443 >/dev/null 2>&1 &
 
     echo "Argo CD initial admin password:"
     PASSWORD=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
@@ -214,6 +214,8 @@ EOF
         --path helm \
         --dest-server https://kubernetes.default.svc \
         --dest-namespace nginx
+
+    argocd app sync argocd/nginx
 
     exit 0
   SHELL
