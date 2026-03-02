@@ -215,7 +215,15 @@ EOF
         --dest-server https://kubernetes.default.svc \
         --dest-namespace octopub
 
-    argocd app sync argocd/octopub
+    argocd app create octopub-manifest \
+        --repo https://mockgitserver.orangegrass-c0938ea8.westus2.azurecontainerapps.io/repo/argocd \
+        --path octopub-manifest \
+        --dest-server https://kubernetes.default.svc \
+        --dest-namespace octopub
+
+    argocd app sync argocd/octopub-manifest
+
+    echo "Git user: ${GIT_USER}"
 
     exit 0
   SHELL
