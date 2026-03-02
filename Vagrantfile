@@ -207,16 +207,16 @@ EOF
 
     GIT_USER=$(uuidgen)
 
-    argocd repo add https://mockgitserver.orangegrass-c0938ea8.westus2.azurecontainerapps.io/repo/argocd --username "${GIT_USER}" --password "blahblah"
+    argocd repo add https://mockgit.octopus.com/repo/argocd --username "${GIT_USER}" --password "blahblah"
 
     argocd app create octopub \
-        --repo https://mockgitserver.orangegrass-c0938ea8.westus2.azurecontainerapps.io/repo/argocd \
+        --repo https://mockgit.octopus.com/repo/argocd \
         --path octopub \
         --dest-server https://kubernetes.default.svc \
         --dest-namespace octopub
 
     argocd app create octopub-manifest \
-        --repo https://mockgitserver.orangegrass-c0938ea8.westus2.azurecontainerapps.io/repo/argocd \
+        --repo https://mockgit.octopus.com/repo/argocd \
         --path octopub-manifest \
         --dest-server https://kubernetes.default.svc \
         --dest-namespace octopub
