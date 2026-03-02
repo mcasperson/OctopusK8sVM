@@ -141,9 +141,8 @@ Vagrant.configure("2") do |config|
 
     kubectl create namespace argocd
 
-    # Create not apply
-    # https://github.com/argoproj/argo-cd/issues/5704
-    kubectl create -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+    # https://github.com/argoproj/argo-cd/issues/26265
+    kubectl apply -n argocd --server-side --force-conflicts -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
     # Wait for the pods to be ready before proceeding
     kubectl wait --for=condition=Ready pods --all -n argocd --timeout=300s
