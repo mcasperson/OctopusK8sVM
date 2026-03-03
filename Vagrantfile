@@ -132,7 +132,7 @@ EOF1
     # Check status
     sudo systemctl status cloud-provider-kind
 
-    helm upgrade --install --atomic \
+    helm upgrade --install --rollback-on-failure \
     --timeout 10m0s \
     --wait \
     --repo https://raw.githubusercontent.com/kubernetes-csi/csi-driver-nfs/master/charts \
@@ -141,7 +141,7 @@ EOF1
     csi-driver-nfs \
     csi-driver-nfs
 
-    helm upgrade --install --atomic \
+    helm upgrade --install --rollback-on-failure \
     --timeout 20m0s \
     --wait \
     --create-namespace --namespace octopus-agent-kind \
