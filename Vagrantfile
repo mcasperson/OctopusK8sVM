@@ -256,6 +256,9 @@ EOF
         --dest-namespace octopub
 
     argocd app sync argocd/octopub-manifest
+    argocd app sync argocd/octopub-manifest-development
+    argocd app sync argocd/octopub-manifest-test
+    argocd app sync argocd/octopub-manifest-production
 
     echo "Use the git username below in Octopus to ensure the Argo CD instance and Octopus are sharing the same git repo."
     echo "If you use different usernames in Octopus, the commits will still appear to work, but Argo CD won't see the changes."
