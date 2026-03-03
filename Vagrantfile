@@ -246,6 +246,8 @@ EOF
         --dest-server https://kubernetes.default.svc \
         --dest-namespace octopub
 
+    argocd app sync argocd/octopub
+
     argocd app create octopub-manifest \
         --repo https://mockgit.octopus.com/repo/argocd \
         --path octopub-manifest \
