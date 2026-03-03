@@ -212,9 +212,10 @@ metadata:
   namespace: argocd
 data:
   policy.csv: |
-    p, octopus, applications, get, *, allow
+    p, octopus, applications, get, */*, allow
     p, octopus, clusters, get, *, allow
     p, octopus, logs, get, */*, allow
+    p, octopus, applications, sync, */*, allow
 EOF
 
     kubectl apply -f argocdpolicies.yml
