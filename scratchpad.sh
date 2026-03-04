@@ -3,8 +3,8 @@
 # Quickly create a temporary Kubernetes cluster in the "Scratchpad" space using Vagrant and Octopus REST API.
 
 # Required variables
-OCTOPUS_SERVER="mattc.octopus.app" # Change if needed
-BEARER_TOKEN="$3" # Pass API key as third argument
+OCTOPUS_SERVER="mattc.octopus.app"
+BEARER_TOKEN="$1"
 SPACE_NAME="Scratchpad"
 
 # Fetch the space ID using Octopus REST API
