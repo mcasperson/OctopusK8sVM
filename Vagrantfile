@@ -251,7 +251,10 @@ EOF
         sleep 30
     done
 
-    argocd app sync argocd/octopub
+    for i in {1..5}; do
+        argocd app sync argocd/octopub && break
+       sleep 30
+   done
 
     for i in {1..5}; do
     argocd app create octopub-manifest \
@@ -263,13 +266,27 @@ EOF
         sleep 30
     done
 
-    argocd app sync argocd/octopub-manifest
+    for i in {1..5}; do
+        argocd app sync argocd/octopub-manifest && break
+        sleep 30
+    done
 
     sleep 30
 
-    argocd app sync argocd/octopub-manifest-development
-    argocd app sync argocd/octopub-manifest-test
-    argocd app sync argocd/octopub-manifest-production
+    for i in {1..5}; do
+        argocd app sync argocd/octopub-manifest-development && break
+        sleep 30
+    done
+
+    for i in {1..5}; do
+        argocd app sync argocd/octopub-manifest-test && break
+        sleep 30
+    done
+
+    for i in {1..5}; do
+        argocd app sync argocd/octopub-manifest-production && break
+       sleep 30
+   done
 
     echo "Use the git username below in Octopus to ensure the Argo CD instance and Octopus are sharing the same git repo."
     echo "If you use different usernames in Octopus, the commits will still appear to work, but Argo CD won't see the changes."
