@@ -257,11 +257,11 @@ EOF
    done
 
     for i in {1..5}; do
-    argocd app create octopub-manifest \
-        --repo https://mockgit.octopus.com/repo/argocd \
-        --path octopub-manifest \
-        --dest-server https://kubernetes.default.svc \
-        --dest-namespace octopub && break
+        argocd app create octopub-manifest \
+            --repo https://mockgit.octopus.com/repo/argocd \
+            --path octopub-manifest \
+            --dest-server https://kubernetes.default.svc \
+            --dest-namespace octopub && break
         echo "Attempt $i failed. Retrying in 30 seconds..."
         sleep 30
     done
