@@ -241,19 +241,27 @@ EOF
 
     argocd repo add https://mockgit.octopus.com/repo/argocd --username "${GIT_USER}" --password "blahblah"
 
+    for i in {1..5}; do
     argocd app create octopub \
         --repo https://mockgit.octopus.com/repo/argocd \
         --path octopub \
         --dest-server https://kubernetes.default.svc \
-        --dest-namespace octopub
+        --dest-namespace octopub && break
+        echo "Attempt $i failed. Retrying in 30 seconds..."
+        sleep 30
+    done
 
     argocd app sync argocd/octopub
 
+    for i in {1..5}; do
     argocd app create octopub-manifest \
         --repo https://mockgit.octopus.com/repo/argocd \
         --path octopub-manifest \
         --dest-server https://kubernetes.default.svc \
-        --dest-namespace octopub
+        --dest-namespace octopub && break
+        echo "Attempt $i failed. Retrying in 30 seconds..."
+        sleep 30
+    done
 
     argocd app sync argocd/octopub-manifest
     argocd app sync argocd/octopub-manifest-development
