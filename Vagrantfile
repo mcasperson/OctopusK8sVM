@@ -286,12 +286,7 @@ EOF
     for i in {1..5}; do
         argocd app sync argocd/octopub-manifest-production && break
        sleep 30
-   done
-
-    echo "Use the git username below in Octopus to ensure the Argo CD instance and Octopus are sharing the same git repo."
-    echo "If you use different usernames in Octopus, the commits will still appear to work, but Argo CD won't see the changes."
-    echo "This is because the mock Git repo that Argo CD has been configured against isolates users so their changes don't overwrite each other."
-    echo "Git user: ${GIT_USER}"
+    done
 
     exit 0
   SHELL
