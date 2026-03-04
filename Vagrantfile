@@ -264,6 +264,9 @@ EOF
     done
 
     argocd app sync argocd/octopub-manifest
+
+    sleep 30
+
     argocd app sync argocd/octopub-manifest-development
     argocd app sync argocd/octopub-manifest-test
     argocd app sync argocd/octopub-manifest-production
