@@ -222,7 +222,7 @@ EOF
 
     TOKEN=$(argocd account generate-token --account octopus)
 
-    helm upgrade --install --atomic \
+    helm upgrade --install --rollback-on-failure \
     --create-namespace --namespace octo-argo-gateway-kind \
     --version "*.*" \
     --set registration.octopus.name="Kind" \
