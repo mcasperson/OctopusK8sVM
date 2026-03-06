@@ -10,7 +10,6 @@ Vagrant.configure("2") do |config|
     v.cpus = 12  # Set to the desired number of CPUs, e.g., 2, 4, etc.
     v.maxmemory = 8192 # memory in MB
     v.memory = 8192 # memory in MB
-    v.vswitch = "Default Switch" # Set to the name of your Hyper-V virtual switch
   end
 
   config.vm.provider :libvirt do |v, override|

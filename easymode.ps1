@@ -9,5 +9,6 @@ $env:OCTOPUS_TEMPK8S_POLLING_HOSTNAME = "polling.mattc.octopus.app"
 $env:OCTOPUS_TEMPK8S_SPACE = "Easy Mode"
 $env:OCTOPUS_TEMPK8S_SPACE_ID = "Spaces-4588"
 $env:OCTOPUS_TEMPK8S_BEARER_TOKEN = $BearerToken
+$env:VAGRANT_HYPERV_VNET="Default Switch"
 
 vagrant up
