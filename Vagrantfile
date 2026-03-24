@@ -86,7 +86,8 @@ Vagrant.configure("2") do |config|
     apt-get update
     apt-get install -y docker.io golang-go
 
-    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+    [ $(uname -m) = x86_64 ] && curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+    [ $(uname -m) = aarch64 ] && curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl"
     sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
     
     curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-4
@@ -95,12 +96,14 @@ Vagrant.configure("2") do |config|
 
     # For AMD64 / x86_64
     [ $(uname -m) = x86_64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.31.0/kind-linux-amd64
+    [ $(uname -m) = aarch64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.31.0/kind-linux-arm64
     chmod +x ./kind
     sudo mv ./kind /usr/local/bin/kind
 
     kind create cluster
 
-    curl -L https://github.com/kubernetes-sigs/cloud-provider-kind/releases/download/v0.10.0/cloud-provider-kind_0.10.0_linux_amd64.tar.gz -o cloud-provider-kind.tar.gz
+    [ $(uname -m) = x86_64 ] &&  curl -L https://github.com/kubernetes-sigs/cloud-provider-kind/releases/download/v0.10.0/cloud-provider-kind_0.10.0_linux_amd64.tar.gz -o cloud-provider-kind.tar.gz
+    [ $(uname -m) = aarch64 ] &&  curl -L https://github.com/kubernetes-sigs/cloud-provider-kind/releases/download/v0.10.0/cloud-provider-kind_0.10.0_linux_arm64.tar.gz -o cloud-provider-kind.tar.gz
     tar -xzf cloud-provider-kind.tar.gz
     mv cloud-provider-kind /usr/local/bin/cloud-provider-kind
 
@@ -165,7 +168,8 @@ EOF1
 
     # Install Argo CD
 
-    curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+    [ $(uname -m) = x86_64 ] && curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64 && sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
+    [ $(uname -m) = aarch64 ] && curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-arm64 && sudo install -m 555 argocd-linux-arm64 /usr/local/bin/argocd
     sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
     rm argocd-linux-amd64
 
