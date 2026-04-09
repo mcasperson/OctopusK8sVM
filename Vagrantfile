@@ -242,11 +242,11 @@ EOF
 
     GIT_USER=$(uuidgen)
 
-    argocd repo add https://mockgit.octopus.com/repo/argocd --username "${GIT_USER}" --password "blahblah"
+    argocd repo add https://mockgit.octopusdemos.com/repo/argocd --username "${GIT_USER}" --password "blahblah"
 
     for i in {1..5}; do
     argocd app create octopub \
-        --repo https://mockgit.octopus.com/repo/argocd \
+        --repo https://mockgit.octopusdemos.com/repo/argocd \
         --path octopub \
         --dest-server https://kubernetes.default.svc \
         --dest-namespace octopub && break
@@ -261,7 +261,7 @@ EOF
 
     for i in {1..5}; do
         argocd app create octopub-manifest \
-            --repo https://mockgit.octopus.com/repo/argocd \
+            --repo https://mockgit.octopusdemos.com/repo/argocd \
             --path octopub-manifest \
             --dest-server https://kubernetes.default.svc \
             --dest-namespace octopub && break
