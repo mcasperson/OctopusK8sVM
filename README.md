@@ -39,5 +39,3 @@ vagrant up --provider=hyperv
 ```
 
 If you have more than one Virtual Switch, you will be prompted for which one to use when vagrant starts.
-
-You may be prompted for a username and password for SMB shares.  This prompt is _setting_ the username and password to use during the provisioning process.
